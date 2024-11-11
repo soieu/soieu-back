@@ -12,9 +12,15 @@ import org.springframework.stereotype.Service
 class BoardService(
     private val boardRepository: BoardRepository
 ) {
-    fun getBoardsByPage(page: Int) : Page<Board> {
-
+    fun getBoardsByPage(page: Int) : Page<Board?> {
         val pageWithElements : Pageable = PageRequest.of(page, 5, Sort.by("createdAt").descending())
         return boardRepository.findAll(pageWithElements)
     }
+
+    fun getBoard(id: Long): Board? {
+        return boardRepository.findById(id).orElseThrow {
+            NoSuchElementException("Board with ID $id not found")
+        }
+    }
 }
+
