@@ -7,4 +7,4 @@ import org.springframework.stereotype.Repository
 
 
 @Repository
-interface BoardRepository : PagingAndSortingRepository<Board?, Long?>, CrudRepository<Board?, Long?>
+interface BoardRepository : PagingAndSortingRepository<Board, Long>, CrudRepository<Board, Long>
