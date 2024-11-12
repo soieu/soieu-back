@@ -9,31 +9,41 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/login/api/boards")
+@RequestMapping("/api/boards")
 class BoardController(
     private val boardService: BoardService
 ) {
 
     @GetMapping
     fun getBoardsByPage(@RequestParam page: Int): ResponseEntity<List<BoardResponse>> {
-        val boardPage = boardService.getBoardsByPage(page - 1)
-        val response: List<BoardResponse> = boardPage.content.map { BoardResponse.from(it) }
-        return ResponseEntity.ok(response)
+        return try {
+            val boardPage = boardService.getBoardsByPage(page - 1)
+            val response = boardPage.content.map { BoardResponse.from(it) }
+            ResponseEntity.ok(response)
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(emptyList())
+        }
     }
 
     @PostMapping
     fun createBoard(@Valid @RequestBody request: BoardRequest): ResponseEntity<BoardResponse> {
-        val board = boardService.createBoard(request.title, request.content)
-        val response = BoardResponse.from(board)
-        return ResponseEntity.status(HttpStatus.CREATED).body(response)
+        return try {
+            val board = boardService.createBoard(request.title, request.content)
+            val response = BoardResponse.from(board)
+            ResponseEntity.status(HttpStatus.CREATED).body(response)
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+        }
     }
 
     @GetMapping("/{id}")
     fun getBoard(@PathVariable id: Long): ResponseEntity<BoardResponse> {
-        val board = boardService.getBoard(id)
-        val response = BoardResponse.from(board)
-        return ResponseEntity.ok(response)
+        return try {
+            val board = boardService.getBoard(id)
+            val response = BoardResponse.from(board)
+            ResponseEntity.ok(response)
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        }
     }
-
-
 }

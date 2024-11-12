@@ -6,6 +6,7 @@ import com.soieu.soieuback.repository.MemberRepository
 import com.soieu.soieuback.util.JwtUtil
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MemberService (
@@ -13,11 +14,8 @@ class MemberService (
     private val passwordEncoder: PasswordEncoder,
     private val jwtUtil: JwtUtil
 ) {
+    @Transactional
     fun registerMember(request : JwtRequest): String? {
-        if (request.isPasswordMismatch) {
-            println("비밀번호가 일치하지 않습니다.") // 디버그 로그
-            return "unmatch password"
-        }
         if (memberRepository.existsByMemberId(request.memberId)) {
             return "already Exist" // TODO 문자 보내는게 아니라 오류를 보내고싶음
         }
@@ -29,5 +27,15 @@ class MemberService (
         val token = jwtUtil.generateToken(request.memberId)
         println("JWT 생성 성공: $token") // 디버그 로그
         return token
+    }
+    fun login(request: JwtRequest): String? {
+        val member = memberRepository.findByMemberId(request.memberId)
+
+        // 사용자 인증 확인
+        return if (member != null && passwordEncoder.matches(request.password, member.password)) {
+            jwtUtil.generateToken(member.memberId) // JWT 토큰 생성 후 반환
+        } else {
+            null // 인증 실패 시 null 반환
+        }
     }
 }

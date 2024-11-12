@@ -6,5 +6,4 @@ import lombok.NoArgsConstructor
 data class JwtRequest(
     val memberId: String,
     val password: String,
-    val isPasswordMismatch : Boolean
 )
