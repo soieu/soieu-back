@@ -60,7 +60,7 @@ class AiService(
     }
 
     private fun createPrompt(newsContent: String): Prompt {
-        val userMessage = UserMessage("한글로 대답해!! Summarize the following news articles into a single summary under 1000 characters:\n\n$newsContent")
+        val userMessage = UserMessage("한글로 대답해!! 다음 뉴스들을 한글 기준 1000자 이내로 요약해줘 가독성 좋게 개행도 넣고 강조도 하면서 형식은 html으로!!! ```html```는 빼줘 :\n\n$newsContent")
         return Prompt(userMessage)
     }
 
@@ -74,7 +74,6 @@ class AiService(
             responseStream.toIterable().forEach { chatResponse: ChatResponse ->
                 val content = chatResponse.getResult().getOutput().getContent()
                 if (content != null) {
-                    println("Received response part: $content")
                     responseBuilder.append(content)
                 }
             }
@@ -84,13 +83,11 @@ class AiService(
         }
 
         val result = responseBuilder.toString().trim()
-        println("Final summarized response: $result")
         return if (result.isBlank()) "No summary available." else result
     }
 
     private fun saveNewsToDatabase(summary: String) {
         if (summary.isBlank()) {
-            println("Skipping empty summary")
             return
         }
 
@@ -98,7 +95,6 @@ class AiService(
             newsSummation = summary
         )
 
-        println("Saving news summary: $summary")
         newsRepository.save(news)
     }
 }
