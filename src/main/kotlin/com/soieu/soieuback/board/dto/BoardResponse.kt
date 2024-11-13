@@ -1,6 +1,6 @@
-package com.soieu.soieuback.dto
+package com.soieu.soieuback.board.dto
 
-import com.soieu.soieuback.entity.Board
+import com.soieu.soieuback.board.entity.Board
 import java.time.LocalDateTime
 
 data class BoardResponse(

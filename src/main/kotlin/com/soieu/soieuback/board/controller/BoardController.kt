@@ -1,8 +1,8 @@
-package com.soieu.soieuback.controller
+package com.soieu.soieuback.board.controller
 
-import com.soieu.soieuback.dto.BoardRequest
-import com.soieu.soieuback.dto.BoardResponse
-import com.soieu.soieuback.service.BoardService
+import com.soieu.soieuback.board.dto.BoardRequest
+import com.soieu.soieuback.board.dto.BoardResponse
+import com.soieu.soieuback.board.service.BoardService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

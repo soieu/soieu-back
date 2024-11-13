@@ -1,6 +1,6 @@
-package com.soieu.soieuback.repository
+package com.soieu.soieuback.board.repository
 
-import com.soieu.soieuback.entity.Board
+import com.soieu.soieuback.board.entity.Board
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Repository

@@ -1,7 +1,7 @@
-package com.soieu.soieuback.service
+package com.soieu.soieuback.board.service
 
-import com.soieu.soieuback.entity.Board
-import com.soieu.soieuback.repository.BoardRepository
+import com.soieu.soieuback.board.entity.Board
+import com.soieu.soieuback.board.repository.BoardRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable

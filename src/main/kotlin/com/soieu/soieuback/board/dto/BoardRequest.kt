@@ -1,4 +1,4 @@
-package com.soieu.soieuback.dto
+package com.soieu.soieuback.board.dto
 
 data class BoardRequest(
     val title: String,

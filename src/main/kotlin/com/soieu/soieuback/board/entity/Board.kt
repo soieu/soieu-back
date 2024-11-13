@@ -1,4 +1,4 @@
-package com.soieu.soieuback.entity
+package com.soieu.soieuback.board.entity
 
 import jakarta.persistence.*
 import java.time.LocalDateTime
