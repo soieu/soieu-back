@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
     kotlin("plugin.jpa") version "1.9.25"
 }
+val springAiVersion by extra("1.0.0-M3")
 
 group = "com.soieu"
 version = "0.0.1-SNAPSHOT"
@@ -23,12 +24,20 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://repo.spring.io/milestone")
+    }
+    maven {
+        url = uri("https://repo.spring.io/snapshot")
+    }
+
 }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
 //    implementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.security:spring-security-test")
     compileOnly("org.projectlombok:lombok")
@@ -43,6 +52,10 @@ dependencies {
     implementation("jakarta.servlet:jakarta.servlet-api")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+    implementation(platform("org.springframework.ai:spring-ai-bom:1.0.0-SNAPSHOT"))
+// Replace the following with the starter dependencies of specific modules you wish to use
+    implementation("org.springframework.ai:spring-ai-openai")
+
 
 
 }
@@ -50,6 +63,11 @@ dependencies {
 kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict")
+    }
+}
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.ai:spring-ai-bom:$springAiVersion")
     }
 }
 
