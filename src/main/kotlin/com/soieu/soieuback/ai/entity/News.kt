@@ -11,7 +11,7 @@ class News(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
-    @Column(name = "news_summation", nullable = false, length = 2000)
+    @Column(name = "news_summation", nullable = false, length = 4000)
     var newsSummation: String,
 
     @Column(nullable = false)

@@ -44,7 +44,7 @@ class AiService(
         val uri = UriComponentsBuilder.fromHttpUrl(newsApiUrl)
             .queryParam("q", "latest") // 검색 키워드
             .queryParam("sortBy", "publishedAt") // 최신순 정렬
-            .queryParam("pageSize", 20) // 20개의 기사 요청
+            .queryParam("pageSize", 40)
             .queryParam("apiKey", apiKey) // API 키
             .build()
             .toUri()
@@ -60,7 +60,7 @@ class AiService(
     }
 
     private fun createPrompt(newsContent: String): Prompt {
-        val userMessage = UserMessage("한글로 대답해!! 다음 뉴스들을 한글 기준 1000자 이내로 요약해줘 가독성 좋게 개행도 넣고 강조도 하면서 형식은 html으로!!! ```html```는 빼줘 :\n\n$newsContent")
+        val userMessage = UserMessage("한글로 대답해!! 다음 뉴스들을 한글 기준 2000자 이내로 요약해줘 가독성 좋게 개행도 넣고 구분하기 쉽게 구분자도 넣어줘! 강조도 하면서 형식은 html으로!!! ```html```는 빼줘:\n\n$newsContent")
         return Prompt(userMessage)
     }
 
