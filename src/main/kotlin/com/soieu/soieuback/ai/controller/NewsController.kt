@@ -11,7 +11,6 @@ class NewsController (
 ){
     @GetMapping("/latestNews")
     fun getLatestNewsSummation() : News  {
-        print("test")
         return newsService.getLatestNewsSummation()
     }
 }
